@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = ({initialCount}) => {
+
+  let [state, setCount] = useState({
+    count: initialCount,
+    name: 'Francis',
+  });
+
+  let [posts, setPosts] = useState([
+    {
+      name: 'Super hooks',
+      body: 'Everything is awesome...'
+    },
+    {
+      name: 'Super hooks',
+      body: 'Everything is awesome...'
+    },
+    {
+      name: 'Super hooks',
+      body: 'Everything is awesome...'
+    }
+  ])
+
+  const addOne= () => {
+    setCount( prevState => {
+      return { ...prevState, count: state.count +1 }
+    } );
+  }
+
+  const restOne = () => {
+    setCount( prevState => {
+      return { ...prevState, count: state.count -1 }
+    } );
+  }
+
+  const addOnePost = () => {
+    let newPost =     {
+      name: 'Super hooks',
+      body: 'Everything is awesome...'
+    };
+
+
+    setPosts([
+      ...posts, newPost
+    ]);
+  }
+
+  return ( 
+    <>
+      <h3> Count: {state.count}</h3>
+      <button onClick={ addOne }> ADD 1</button>
+      <button onClick={ restOne }> REST 1</button>
+      { posts.map( (posts, i) => (
+        <div key={i}>
+          <div>Name: {posts.name}</div>
+          <div>Body: {posts.body}</div>
+        </div>
+      ))}
+      <button onClick={addOnePost}> Add Post</button>
+    </>
+   );
 }
-
+ 
 export default App;
