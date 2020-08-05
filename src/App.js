@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import Post from './posts';
 
 const App = ({initialCount}) => {
 
@@ -35,6 +35,10 @@ const App = ({initialCount}) => {
     } );
   }
 
+  useEffect( () => {
+    console.log('mounted');
+  }, []);
+
   const addOnePost = () => {
     let newPost =     {
       name: 'Super hooks',
@@ -47,18 +51,20 @@ const App = ({initialCount}) => {
     ]);
   }
 
+  const removePosts = () => {
+    setPosts([]);
+  }
+
   return ( 
     <>
       <h3> Count: {state.count}</h3>
       <button onClick={ addOne }> ADD 1</button>
       <button onClick={ restOne }> REST 1</button>
       { posts.map( (posts, i) => (
-        <div key={i}>
-          <div>Name: {posts.name}</div>
-          <div>Body: {posts.body}</div>
-        </div>
+        <Post item={posts} key={i}/>
       ))}
       <button onClick={addOnePost}> Add Post</button>
+      <button onClick={removePosts}>Remove Posts</button>
     </>
    );
 }
